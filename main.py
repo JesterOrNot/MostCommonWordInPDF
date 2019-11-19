@@ -58,8 +58,6 @@ def find_most_frequent_word(word_dict: dict):
 
 if __name__ == "__main__":
     print("Reading pdf...")
-    # print(create_dict_from_list(filter_list(string_to_list(
-    #     read_pdf_to_string("Salvage the Bones ( PDFDrive.com ).pdf"))))['Skeetah'])
     word_dict = create_dict_from_list(filter_list(
         string_to_list(read_pdf_to_string("Salvage the Bones ( PDFDrive.com ).pdf"))))
     most_common_word = find_most_frequent_word(create_dict_from_list(filter_list(
