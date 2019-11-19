@@ -17,7 +17,7 @@ def string_to_list(string: str):
 def filter_list(the_list: list):
     final_list = []
     punctuation = [",", ";", "(", ")", "[", "]",
-                   "{", "}", '"', "'", ".", "”", "\n", "“"]
+                   "{", "}", '"', "'", ".", "”", "\n", "“", "\t", "-"]
     for i in the_list:
         if len(i) == 0:
             continue
@@ -38,7 +38,7 @@ def create_dict_from_list(the_list: list):
     my_dict = {}
     for i in the_list:
         if not i in my_dict.keys():
-            my_dict[i] = 0
+            my_dict[i] = 1
         else:
             my_dict[i] = my_dict.get(i)+1
     return my_dict
@@ -49,12 +49,20 @@ def create_dict_from_list(the_list: list):
 def find_most_frequent_word(word_dict: dict):
     largest = list(word_dict)[0]
     for key, value in word_dict.items():
+        if key == "the" or "and":
+            continue
         if value > word_dict.get(largest):
             largest = key
     return largest
 
 
 if __name__ == "__main__":
-    print("Reading pdf.......")
-    print(find_most_frequent_word(create_dict_from_list(filter_list(
-        string_to_list(read_pdf_to_string("Salvage the Bones ( PDFDrive.com ).pdf"))))))
+    print("Reading pdf...")
+    # print(create_dict_from_list(filter_list(string_to_list(
+    #     read_pdf_to_string("Salvage the Bones ( PDFDrive.com ).pdf"))))['Skeetah'])
+    word_dict = create_dict_from_list(filter_list(
+        string_to_list(read_pdf_to_string("Salvage the Bones ( PDFDrive.com ).pdf"))))
+    most_common_word = find_most_frequent_word(create_dict_from_list(filter_list(
+        string_to_list(read_pdf_to_string("Salvage the Bones ( PDFDrive.com ).pdf")))))
+    print(f"The most common word is {most_common_word}")
+    print(f"There are {len(word_dict)} unique words in salvage the bones")
